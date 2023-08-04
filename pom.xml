@@ -34,6 +34,9 @@
         <java.version>17</java.version>
         <surefire.version>2.19.1</surefire.version>
         <javalin.version>4.6.4</javalin.version>
+        <routing.version>2.5.0</routing.version>
+        <json.version>1.0.4</json.version>
+        <restclient.version>0.5.11</restclient.version>
     </properties>
 
 
@@ -119,6 +122,7 @@
             <artifactId>commons-lang3</artifactId>
             <version>3.6</version>
         </dependency>
+
         <dependency>
             <groupId>com.google.inject</groupId>
             <artifactId>guice</artifactId>
@@ -164,6 +168,86 @@
             <groupId>javax.xml.bind</groupId>
             <artifactId>jaxb-api</artifactId>
             <version>2.3.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.mercadolibre.restclient</groupId>
+            <artifactId>meli-restclient-core</artifactId>
+            <version>0.5.5</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.mercadolibre.restclient</groupId>
+            <artifactId>meli-restclient-core</artifactId>
+            <version>0.5.5</version>
+            <classifier>tests</classifier>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.mercadolibre.restclient</groupId>
+            <artifactId>restclient-core</artifactId>
+            <version>${restclient.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.commons</groupId>
+                    <artifactId>commons-text</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.mercadolibre.restclient</groupId>
+            <artifactId>restclient-default</artifactId>
+            <version>${restclient.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.mercadolibre</groupId>
+            <artifactId>routing</artifactId>
+            <version>${routing.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.newrelic.agent.java</groupId>
+                    <artifactId>newrelic-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.mercadolibre.restclient</groupId>
+                    <artifactId>restclient-http</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>com.mercadolibre</groupId>
+            <artifactId>threading</artifactId>
+            <version>0.1.4</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.mercadolibre.json</groupId>
+            <artifactId>json-core</artifactId>
+            <version>${json.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.mercadolibre.json_jackson</groupId>
+            <artifactId>json-jackson</artifactId>
+            <version>${json.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.mercadolibre.resilience</groupId>
+            <artifactId>resilience-core</artifactId>
+            <version>1.2.4</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.mercadolibre.metrics</groupId>
+                    <artifactId>metrics-core</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
     </dependencies>
