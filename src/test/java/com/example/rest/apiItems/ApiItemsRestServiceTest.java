@@ -96,14 +96,4 @@ public class ApiItemsRestServiceTest extends MeliContextAwareRestClientTestBase 
 
         assertNull(response.orElse(null));
     }
-
-//    @Test
-//    public void getResourceName() {
-//        fail();
-//    }
-//
-//    @Test
-//    public void getItemById() {
-//        fail();
-//    }
 }
