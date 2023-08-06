@@ -6,6 +6,7 @@ import com.example.router.ServerStartingHandler;
 import io.javalin.Javalin;
 import io.javalin.core.JavalinConfig;
 import io.javalin.core.util.Header;
+import io.javalin.http.Context;
 import lombok.Getter;
 
 import javax.servlet.http.HttpServletResponse;
@@ -36,6 +37,20 @@ public class WebServer {
     public void stop() {
         this.server.stop();
     }
+
+//    private void setDefaultHeaders(Context context) {
+//        if (!context.res.containsHeader(Header.CONTENT_TYPE)) {
+//            context.header(Header.CONTENT_TYPE, MediaType.JSON_UTF_8.toString());
+//        }
+//
+//        if (!context.res.containsHeader(Header.VARY)) {
+//            context.header(Header.VARY, "Accept,Accept-Encoding");
+//        }
+//
+//        if (!context.res.containsHeader(Header.CACHE_CONTROL)) {
+//            context.header(Header.CACHE_CONTROL, "max-age=0");
+//        }
+//    }
 
     private void setPingHandler(Javalin app) {
         app.get("/ping", context -> {
