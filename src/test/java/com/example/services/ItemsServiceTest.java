@@ -1,5 +1,6 @@
 package com.example.services;
 
+import com.example.exceptions.ApiException;
 import com.example.extensions.mockito.MockitoTest;
 import com.example.rest.apiItems.AdItemDTO;
 import com.example.rest.apiItems.AdItemDTOFixture;
@@ -8,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -77,6 +79,21 @@ class ItemsServiceTest {
         assertTrue(adItemDTOResult.contains(adItemDTO1.get()));
         assertTrue(adItemDTOResult.contains(adItemDTO2.get()));
         assertTrue(adItemDTOResult.contains(adItemDTO3.get()));
+    }
+
+    @Test
+    public void givenGetItemsWhenParseErrorThenReturnParseException() throws Exception {
+        // given
+        final String testItemId1 = "MLA123";
+        String[] testItemIds = { testItemId1 };
+
+        when(apiItemsRestService.getItemById(testItemId1)).thenThrow(ApiException.class);
+
+        // when
+        List<AdItemDTO> adItemDTOS = itemsService.getItems(testItemIds);
+
+        // then
+        assertEquals(Collections.emptyList(), adItemDTOS);
     }
 
 }
