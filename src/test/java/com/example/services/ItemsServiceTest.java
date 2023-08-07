@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -48,6 +49,34 @@ class ItemsServiceTest {
 
         // then
         assertNull(adItemDTOResult);
+    }
+
+    @Test
+    public void whenGetMultipleExistingItemIdsThenAListOfAdItemDTOShouldBeReturned() throws Exception {
+        // given
+        final String testItemId1 = "MLA123";
+        final String testItemId2 = "MLA456";
+        final String testItemId3 = "MLA789";
+        String[] testItemIds = { testItemId1, testItemId2, testItemId3};
+
+        Optional<AdItemDTO> adItemDTO1 = Optional.of(new AdItemDTOFixture().withId("MLA123").build());
+        Optional<AdItemDTO> adItemDTO2 = Optional.of(new AdItemDTOFixture().withId("MLA456").build());
+        Optional<AdItemDTO> adItemDTO3 = Optional.of(new AdItemDTOFixture().withId("MLA789").build());
+
+        when(apiItemsRestService.getItemById(testItemId1)).thenReturn(adItemDTO1);
+        when(apiItemsRestService.getItemById(testItemId2)).thenReturn(adItemDTO2);
+        when(apiItemsRestService.getItemById(testItemId3)).thenReturn(adItemDTO3);
+
+        // when
+        List<AdItemDTO> adItemDTOResult = itemsService.getItems(testItemIds);
+
+        // then
+        assertNotNull(adItemDTOResult);
+        assertEquals(3, adItemDTOResult.size());
+        assertEquals(adItemDTO1.get().getId(), adItemDTOResult.get(0).getId());
+        assertTrue(adItemDTOResult.contains(adItemDTO1.get()));
+        assertTrue(adItemDTOResult.contains(adItemDTO2.get()));
+        assertTrue(adItemDTOResult.contains(adItemDTO3.get()));
     }
 
 }
