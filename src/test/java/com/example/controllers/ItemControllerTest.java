@@ -33,19 +33,20 @@ public class ItemControllerTest {
     private final String testItemId = "MLA123";
 
     @Test
-    public void givenGetItemWhenItemIdExistsThenReturnAdItemDTO() throws ParseException, ApiException {
+    public void givenGetItemWhenItemIdExistsThenReturnAdItemDTO() throws Exception {
         // given
+        AdItemDTO adItemDTO = new AdItemDTO();
+
         when(ctx.pathParam("itemId")).thenReturn(testItemId);
-
-        AdItemDTO adItemDTO = new AdItemDTOFixture().withId(testItemId).build();
-
         when(itemsService.getItem(testItemId)).thenReturn(adItemDTO);
 
         // when
-        itemController.getItem(ctx);
+        Object result = itemController.getItem(ctx);
 
         // then
-        assertEquals(HttpStatus.SC_OK, ctx.status());
+        assertNotNull(result);
+        verify(ctx).status(HttpStatus.SC_OK);
+//        assertEquals(HttpStatus.SC_OK, ctx.status());
         verify(ctx).json(adItemDTO);
     }
 
